@@ -539,7 +539,7 @@ class UserController {
 
   getAllTopics = async (req, res, next) => {
     try {
-      const topics = await db.topics.find({ active: true });
+      const topics = await db.topics.find({ active: true }).sort({ index: 1 });
 
       if (!topics || topics.length === 0) {
         throw new httpException(404, "No topics found", {
@@ -549,9 +549,9 @@ class UserController {
 
       const topicsWithLessons = await Promise.all(
         topics.map(async (topic) => {
-          const lessons = await db.lessons.find({
-            topicId: topic._id,
-          });
+          const lessons = await db.lessons
+            .find({ topicId: topic._id })
+            .sort({ index: 1 });
 
           return {
             ...topic.toJSON(),

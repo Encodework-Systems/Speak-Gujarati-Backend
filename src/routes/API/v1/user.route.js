@@ -76,6 +76,6 @@ router.post(
   awaitHandlerFactory(userController.saveSubscriptionInfo)
 );
 router.get("/get-topics",auth(1), awaitHandlerFactory(userController.getAllTopics));
-router.get("/get-phrases",auth(1), awaitHandlerFactory(userController.getPhrases));
+router.post("/get-phrases",auth(1), awaitHandlerFactory(userController.getPhrases));
 
 module.exports = router;
